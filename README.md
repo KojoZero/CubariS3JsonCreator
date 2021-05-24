@@ -1,24 +1,24 @@
-Before you start anything you need to setup Amazon S3 and get your account access key
+##Before you start anything you need to setup Amazon S3 and get your account access key
 To do so follow step 1 (only step 1) of this guide (skip the Apache Maven part): https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html#get-started-setup
 
 
 If you're not experienced with how to use Cubari Gists, I recommend you read this reddit post to get an idea of how it works: https://www.reddit.com/r/manga/comments/mcicbp/sl_how_to_host_a_series_on_imgur_with_guyamoe/
 
 The main info to get from that post is how to use github for Cubari and how to add more chapters to your github file. 
------------------------------------------------------------------------------------
-Before running this program, make sure to install at least Java 11: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
------------------------------------------------------------------------------------
+
+##Before running this program, make sure to install at least Java 11: https://www.oracle.com/java/technologies/javase-jdk11-downloads.html
 Here's how your S3 Bucket and manga series need to be setup
 You need to create an S3 Bucket (MAKE SURE THAT All THE FOLDERS ARE PUBLIC ACCESS)
 
 Take your manga files on your computer and make sure that they are in this format:
+...
 --<Manga Series Name (this is the prefix)e>
 	--<Vol.X>
 			--<Chapter X - Name of the Chapter>
 				--<Image X.jpg>
 				--<image X.png>
 				--<Image X.jpg>
-
+...
 
 
 The manga series folder should have its volume folder, and each volume should contain its chapters, and each chapter should contain all the images of that chapter.
@@ -27,13 +27,14 @@ If you use the format: Chapter 53 - The Next Namekian, this code will rename it 
 If you don't specifically use Chapter and use something else (like Chapitre), it won't automatically rename for you.
 
 If you don't want to do it by chapter but rather by volume, just put all the images in a single chapter like so:
-
+...
 --<Manga Series Name>
 		--<Vol.X>
 				--<Vol X>
 					--<Image X>
 					--<image X>
 					--<Image X>
+...
 
 Upload this manga to your bucket.
 ------------------------------------------------------------------------------------
