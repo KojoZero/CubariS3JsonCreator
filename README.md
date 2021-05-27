@@ -14,10 +14,10 @@ Take your manga files on your computer and make sure that they are in this forma
 ```
 --<Manga Series Name (this is the prefix)e>
 	--<Vol.X>
-			--<Chapter X - Name of the Chapter>
-				--<Image X.jpg>
-				--<image X.png>
-				--<Image X.jpg>
+		--<Chapter X - Name of the Chapter>
+			--<Image X.jpg>
+			--<image X.png>
+			--<Image X.jpg>
 ```
 
 
@@ -30,10 +30,10 @@ If you don't want to do it by chapter but rather by volume, just put all the ima
 ```
 --<Manga Series Name>
 		--<Vol.X>
-				--<Vol X>
-					--<Image X>
-					--<image X>
-					--<Image X>
+			--<Vol X>
+				--<Image X>
+				--<image X>
+				--<Image X>
 ```
 
 ## Upload this manga to your bucket.
