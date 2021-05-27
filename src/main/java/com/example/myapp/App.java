@@ -213,11 +213,13 @@ public class App {
                 for (int iii = 0; iii < (seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getImageDirs().size() - 1); iii++) {
                     String imgUrl = "\t\t\t\t\t\""+ baseUrl + "/" + prefixName + seriesLibrary.get(0).getVolumeDirs().get(i).getVolumeName() + "/" + seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getChapterName() + "/" + seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getImageDirs().get(iii).getImageName() + "\",";
                     imgUrl = imgUrl.replace("#","%23");
+                    imgUrl = imgUrl.replace("%", "%25");
                     imgUrl = imgUrl.replace(" ","+");
                     pw.println(imgUrl);
                 }
                 String imgUrl = "\t\t\t\t\t\"" + baseUrl + "/" + prefixName  + seriesLibrary.get(0).getVolumeDirs().get(i).getVolumeName() + "/" + seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getChapterName() + "/" + seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getImageDirs().get(seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getImageDirs().size() - 1).getImageName() + "\"";
                 imgUrl = imgUrl.replace("#","%23");
+                imgUrl = imgUrl.replace("%", "%25");
                 imgUrl = imgUrl.replace(" ","+");
                 pw.println(imgUrl);
                 pw.println("\t\t\t\t]");
