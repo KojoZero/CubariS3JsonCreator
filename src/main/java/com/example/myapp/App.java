@@ -40,7 +40,7 @@ public class App {
         prefixName = scan.nextLine();
         System.out.println("What is the name of the Bucket");
         bucketName = scan.nextLine();
-        System.out.println("Give the base url of your S3 storage (ex. https://bucketname.region.amazonaws.com)");
+        System.out.println("Give the base url of your S3 storage or CDN if you're using one(ex. https://bucketname.region.amazonaws.com)");
         baseUrl = scan.nextLine();
         System.out.println("Choose which sorting algorithm to use [1 for default, 2 for alternative](if you crash using the default try the alternative");
         sortingAlgorithm = scan.nextInt();
@@ -212,15 +212,15 @@ public class App {
                         "\t\t\t\t\"" + groupName + "\": [");
                 for (int iii = 0; iii < (seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getImageDirs().size() - 1); iii++) {
                     String imgUrl = "\t\t\t\t\t\""+ baseUrl + "/" + prefixName + seriesLibrary.get(0).getVolumeDirs().get(i).getVolumeName() + "/" + seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getChapterName() + "/" + seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getImageDirs().get(iii).getImageName() + "\",";
-                    imgUrl = imgUrl.replace("#","%23");
                     imgUrl = imgUrl.replace("%", "%25");
-                    imgUrl = imgUrl.replace(" ","+");
+                    imgUrl = imgUrl.replace("#","%23");
+                    imgUrl = imgUrl.replace(" ","%20");
                     pw.println(imgUrl);
                 }
                 String imgUrl = "\t\t\t\t\t\"" + baseUrl + "/" + prefixName  + seriesLibrary.get(0).getVolumeDirs().get(i).getVolumeName() + "/" + seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getChapterName() + "/" + seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getImageDirs().get(seriesLibrary.get(0).getVolumeDirs().get(i).getChapterDirs().get(ii).getImageDirs().size() - 1).getImageName() + "\"";
-                imgUrl = imgUrl.replace("#","%23");
                 imgUrl = imgUrl.replace("%", "%25");
-                imgUrl = imgUrl.replace(" ","+");
+                imgUrl = imgUrl.replace("#","%23");
+                imgUrl = imgUrl.replace(" ","%20");
                 pw.println(imgUrl);
                 pw.println("\t\t\t\t]");
                 pw.println("\t\t\t},");
