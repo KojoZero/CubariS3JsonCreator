@@ -23,18 +23,21 @@ import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 public class App {
 
     public static void main(String[] args) throws IOException {
-
         Scanner scan = new Scanner(System.in);
-        Region region = Region.US_WEST_1;
+        Region regionName;
+        System.out.println("What region is your bucket located in (ex. us-west-2)");
+        regionName = Region.of(scan.nextLine().toLowerCase());
+
+        Region region = regionName;
         S3Client s3 = S3Client.builder().region(region).build();
 
-        String baseUrl = "https://cubaricoloredmanga.s3-us-west-1.amazonaws.com";
-        String bucketName = "cubaricoloredmanga";
-        String prefixName = "Dragon Ball Super";
+        String baseUrl = "https://cdn.coloredcouncil.com";
+        String bucketName = "cdn.coloredcouncil.com";
+        String prefixName = "Dragon Ball/";
         String key = "key";
         String chapterScheme;
                 //Chapter \w\d\s-
-        int sortingAlgorithm;
+        int sortingAlgorithm = 1;
         //
         System.out.println("What is the name of the prefix (ex. Bleach/, Naruto/)");
         prefixName = scan.nextLine();
@@ -42,9 +45,10 @@ public class App {
         bucketName = scan.nextLine();
         System.out.println("Give the base url of your S3 storage or CDN if you're using one(ex. https://bucketname.region.amazonaws.com)");
         baseUrl = scan.nextLine();
-        System.out.println("Choose which sorting algorithm to use [1 for default, 2 for alternative](if you crash using the default try the alternative");
+        System.out.println("Choose which sorting algorithm to use [1 for default, 2 for alternative](if you crash using the default try the alternative)");
         sortingAlgorithm = scan.nextInt();
         scan.nextLine();
+
         //The meat of the program
         List<S3Object> BucketObjectList = listAllBucketObjects(s3, bucketName, prefixName);
         if (sortingAlgorithm == 1){
@@ -54,10 +58,8 @@ public class App {
         } else {
             Collections.sort(BucketObjectList,new AlphaNumericComparator());
         }
-        System.out.println("Closing the connection to Amazon S3");
+        System.out.println("Successfully gathered object data. Closing Connection.");
         s3.close();
-        System.out.println("Connection closed");
-        System.out.println("Exiting...");
         ArrayList<Image> imageLibrary = new ArrayList<Image>();
         ArrayList<SeriesDir> seriesLibrary = new ArrayList<SeriesDir>();
         ArrayList<VolumeDir> volumeLibrary = new ArrayList<VolumeDir>();
@@ -189,10 +191,6 @@ public class App {
                 }
             }
         }
-        //System.out.println(baseUrl+"/"+imageLibrary.get(90).getSeriesName()+"/"+imageLibrary.get(90).getVolumeName()+"/"+imageLibrary.get(90).getChapterName()+"/"+imageLibrary.get(90).getImageName());
-        System.out.println("Finished Loading Image Library");
-
-
         pw.println("{\n\t\"title\": \"" + mangaName + "\",\n" +
                 "\t\"description\": \"" + mangaDescription + "\",\n" +
                 "\t\"artist\": \"" + mangaArtist + "\",\n" +
@@ -232,12 +230,8 @@ public class App {
         pw.println("\t}\n" +
                 "}");
         pw.close();
-        //String newJson = Files.readString(Path.of("CubariS3JsonOutput.json"));
-        //newJson = newJson.replace("},\\n\\t}", "}\\n\\t}");
-        //PrintWriter dw = new PrintWriter(json);
-        //dw.print(newJson);
-        //dw.close();
-        System.out.println("\n\nJson File Successfully Created (Check JavaDriveOutput.json)");
+
+        System.out.println("\n\nJson File Successfully Created (Check CubariS3JsonOutput)");
         System.out.println("MAKE SURE TO REMOVE THE LAST COMMA");
 
     }
@@ -273,33 +267,3 @@ public class App {
         return objects;
     }
 }
-
-//Do something along these lines
-            /*
-            int paranthesisMockup = 0;
-            for (int i = 0; i < objects.size(); i++){
-                if (paranthesisMockup = 1){
-                    if (paranthesisMockup = 2) {
-                        if (paranthesisMockup = 3) {
-                                //You are an image. You get added to the image database
-                                //You have your chapterName
-                                //All the images with the same chapterName get added to a single chapter
-                                //Volume name = the vol. Name of a single image (they all belong to the same anyways
-                                //Take the Series name of a single image from a single chapter, from a single vol. to assign
-                                //Make sure everything is sorted out.
-                        } else {
-                            //You are a chapter
-                        }
-                    } else {
-                        //You are a volume
-                    }
-                } else {
-                    //You are a series
-                }
-
-            }
-
-             */
-
-//Required Regex
-//find "\/"
